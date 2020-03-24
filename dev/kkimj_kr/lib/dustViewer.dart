@@ -53,12 +53,12 @@ class _DustViewerState extends State<DustViewer> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Text('얼굴사진',),
+                            getFaceImage(airData),
                             Text('${airData.data.current.pollution.aqius}', style: TextStyle(fontSize: 40),),
-                            Text('보통', style: TextStyle(fontSize: 20),),]
+                            Text(getString(airData), style: TextStyle(fontSize: 20),),]
                       ),
 
-                      color: Colors.yellow,
+                      color: getColor(airData),
                       padding: const EdgeInsets.all(8),
                     ),
                     Padding(
@@ -68,7 +68,8 @@ class _DustViewerState extends State<DustViewer> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Text('이미지'),
+                              Image.network('https://airvisual.com/images/${airData.data.current.weather.ic}.png',
+                              width: 32, height: 32,),
                               SizedBox(width: 16,),
                               Text('${airData.data.current.weather.tp}°C', style: TextStyle(fontSize: 16),),
                             ],
@@ -101,6 +102,61 @@ class _DustViewerState extends State<DustViewer> {
         ),
       ),
     );
+  }
+
+  Color getColor(AirApi result) {
+    if (result.data.current.pollution.aqius <= 50)
+      {
+        return Colors.greenAccent;
+      }
+    else if(result.data.current.pollution.aqius <= 100)
+      {
+        return Colors.yellow;
+      }
+
+    else if(result.data.current.pollution.aqius <= 150)
+    {
+      return Colors.orange;
+    }
+    else
+      return Colors.red;
+  }
+
+  String getString(AirApi airData) {
+    if (airData.data.current.pollution.aqius <= 50)
+    {
+      return '양호';
+    }
+    else if(airData.data.current.pollution.aqius <= 100)
+    {
+      return '보통';
+    }
+
+    else if(airData.data.current.pollution.aqius <= 150)
+    {
+      return '나쁨';
+    }
+    else
+      return '최악';
+  }
+
+  getFaceImage(AirApi airData) {
+    if (airData.data.current.pollution.aqius <= 50)
+    {
+      return Image.network('https://www.airvisual.com/assets/aqi/ic-face-green.svg');
+    }
+    else if(airData.data.current.pollution.aqius <= 100)
+    {
+      return Image.network('https://www.airvisual.com/assets/aqi/ic-face-yellow.svg');
+    }
+
+    else if(airData.data.current.pollution.aqius <= 150)
+    {
+      return Image.network('https://www.airvisual.com/assets/aqi/ic-face-orange.svg');
+    }
+    else
+      return Image.network('https://www.airvisual.com/assets/aqi/ic-face-red.svg');
+
   }
 }
 

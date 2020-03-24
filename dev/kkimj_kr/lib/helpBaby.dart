@@ -13,7 +13,40 @@ class _HelpBabyState extends State<HelpBaby> {
       drawer: Drawer(
 
       ),
-      body: Center(child:Text('영아원 SNS MainPAGE입니다.'),),
+      body: Column(
+        children: <Widget>[
+              mapGraph(),
+          SingleChildScrollView(child:cardFeed()),
+        ],
+      ),
+    );
+  }
+}
+
+class mapGraph extends StatefulWidget {
+  @override
+  _mapGraphState createState() => _mapGraphState();
+}
+
+class _mapGraphState extends State<mapGraph> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('map graph'),
+    );
+  }
+}
+
+class cardFeed extends StatefulWidget {
+  @override
+  _cardFeedState createState() => _cardFeedState();
+}
+
+class _cardFeedState extends State<cardFeed> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('map graph'),
     );
   }
 }
